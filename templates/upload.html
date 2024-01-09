@@ -1,0 +1,33 @@
+<!-- templates/upload.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+</head>
+<body>
+    <h1>{{.Title}}</h1>
+    
+    <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+        <label for="photo">Select a photo to upload:</label>
+        <input type="file" name="photo" id="photo" accept=".jpg">
+        <br>
+        <input type="submit" value="Upload">
+    </form>
+
+
+
+
+    <script>
+        document.getElementById('photo').addEventListener('change', function () {
+            var fileInput = document.getElementById('photo');
+            var fileNameDisplay = document.getElementById('fileNameDisplay');
+            fileNameDisplay.textContent = fileInput.files[0].name;
+        });
+    </script>
+
+</body>
+</html>
+
