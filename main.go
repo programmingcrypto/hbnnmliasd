@@ -11,7 +11,7 @@ import (
 	"strings"
 	"sync"
 	"time"
-
+	"github.com/didip/tollbooth"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
@@ -29,6 +29,32 @@ var (
 	formSubmittedKey = "formSubmitted"
 )
 
+
+
+func blockBotsHandler(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		userAgent := r.Header.Get("User-Agent")
+
+		// Example: Block based on User-Agent
+		if strings.Contains(userAgent, "bot") {
+			http.Error(w, "Bot access not allowed", http.StatusForbidden)
+			return
+		}
+
+		// Example: Rate limiting using github.com/didip/tollbooth
+		// You can adjust the rate limit as needed
+		limiter := tollbooth.NewLimiter(1, nil)
+		if limitReached := tollbooth.LimitByRequest(limiter, w, r); limitReached != nil {
+			http.Error(w, "Rate limit exceeded", http.StatusTooManyRequests)
+			return
+		}
+
+		// Your regular handling logic here
+		next.ServeHTTP(w, r)
+	})
+}
+
+
 // PageVariables struct for passing data to HTML template
 type PageVariables struct {
 	Title         string
@@ -44,6 +70,7 @@ type Violation struct {
 	Message string
 	Date    string
 }
+
 
 // Review struct to represent a review
 type Review struct {
